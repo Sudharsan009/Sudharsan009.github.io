@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- Updated viewport meta tag to better handle desktop mode -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+
+  <!-- Force rendering mode for better compatibility -->
+  <meta name="force_rendering" content="webkit">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="portfolio">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <title>portfolio</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Reset default styles and ensure proper rendering */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: fixed;
+    }
+
+    /* Flutter canvas container */
+    .flutter-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Loading indicator */
+    #loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: Arial, sans-serif;
+    }
+  </style>
+
+  <script>
+    // Prevent zooming on mobile devices
+    document.addEventListener('touchmove', function (event) {
+      if (event.scale !== 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+
+    // Handle orientation changes
+    window.addEventListener('orientationchange', function() {
+      // Force layout recalculation
+      setTimeout(function() {
+        window.dispatchEvent(new Event('resize'));
+      }, 100);
+    });
+
+    // Improved error handling
+    window.addEventListener('error', function(e) {
+      console.error('Runtime Error:', e);
+      document.getElementById('loading').innerHTML = 'An error occurred. Please refresh the page.';
+    });
+
+    // Handle Flutter initialization
+    window.addEventListener('load', function() {
+      // Set initial viewport dimensions
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+      // Update on resize
+      window.addEventListener('resize', () => {
+        vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      });
+    });
+  </script>
+</head>
+<body>
+<div class="flutter-container">
+  <div id="flutter_target"></div>
+</div>
+
+<!-- Flutter main script -->
+<script src="main.dart.js" defer></script>
+</body>
+</html>
